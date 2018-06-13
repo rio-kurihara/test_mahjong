@@ -1,1 +1,1 @@
-web: python hellow_world.py
+web: python app_with_handler.py
