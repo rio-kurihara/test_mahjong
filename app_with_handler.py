@@ -65,7 +65,7 @@ def callback():
 def message_text(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text='aaaaa')
+        TextSendMessage(text='画像しか受け付けませんよ')
     )
 
 if __name__ == "__main__":
