@@ -62,7 +62,7 @@ def callback():
 
 
 @handler.add(MessageEvent, message=ImageMessage)
-def message_text(event):
+def handle_img(event):
     if isinstance(event.message, ImageMessage):
         line_bot_api.reply_message(
             event.reply_token,
