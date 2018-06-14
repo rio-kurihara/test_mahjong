@@ -61,7 +61,7 @@ def callback():
     return 'OK'
 
 
-@handler.add(MessageEvent, message=TextMessage)
+@handler.add(MessageEvent, message=ImageMessage)
 def message_text(event):
     if isinstance(event.message, ImageMessage):
         line_bot_api.reply_message(
