@@ -63,10 +63,16 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text='画像しか受け付けませんよ')
-    )
+    if isinstance(event.message, ImageMessage):
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='たしかに画像だね、でもごめん、まだ受け付けてないんだ')
+            )
+    else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='画像しか受け付けませんよ')
+            )
 
 if __name__ == "__main__":
     arg_parser = ArgumentParser(
