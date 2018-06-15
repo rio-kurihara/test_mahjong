@@ -81,15 +81,20 @@ def callback():
 #         return
 
 @handler.add(MessageEvent, message=ImageMessage)
-def message_img(event):
-    if isinstance(event.message, ImageMessage):
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text='画像しか受け付けてないんだ'))
-    else:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text='画像しか受け付けませんよ'))
+def handle_message(event):
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text="写真かな"))
+# @handler.add(MessageEvent, message=ImageMessage)
+# def message_img(event):
+#     if isinstance(event.message, ImageMessage):
+#         line_bot_api.reply_message(
+#             event.reply_token,
+#             TextSendMessage(text='画像しか受け付けてないんだ'))
+#     else:
+#         line_bot_api.reply_message(
+#             event.reply_token,
+#             TextSendMessage(text='画像しか受け付けませんよ'))
 
 
 if __name__ == "__main__":
