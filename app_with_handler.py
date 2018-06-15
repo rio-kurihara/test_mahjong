@@ -67,7 +67,7 @@ def callback():
 #         event.reply_token,
 #         TextSendMessage(text='画像しか受け付けてないんだ'))
 
-@handler.add(MessageEvent, message=ImageMessage)
+@handler.add(MessageEvent, message=TextMessage)
 def message_img(event):
     if isinstance(event.message, ImageMessage):
         ext = 'jpg'
