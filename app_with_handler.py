@@ -16,7 +16,7 @@
 import os
 import sys
 from argparse import ArgumentParser
-
+from hellow_world import hello_world
 from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
@@ -63,18 +63,9 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
+    text = hello_world():
     line_bot_api.reply_message(
-        event.reply_token, TextSendMessage(text='画像しか受け付けてないんだ'))
-#
-# @handler.add(MessageEvent, message=ImageMessage)
-# def message_img(event):
-#     if isinstance(event.message, ImageMessage):
-#         ext = 'jpg'
-#     else:
-#         line_bot_api.reply_message(
-#             event.reply_token,
-#             TextSendMessage(text='画像しか受け付けてないんだ'))
-#         return
+        event.reply_token, TextSendMessage(text=text))
 
 
 @handler.add(MessageEvent, message=ImageMessage)
