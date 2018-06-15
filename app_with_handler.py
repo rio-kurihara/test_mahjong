@@ -15,8 +15,9 @@
 
 import os
 import sys
+sys.path.append('./')
 from argparse import ArgumentParser
-# from hellow_world import hello_world
+from hellow_world import hello_world
 from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
@@ -43,9 +44,9 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 
-def hello_world():
-    return 'Hello World!'
-
+# def hello_world():
+#     return 'Hello World!'
+#
 
 @app.route("/callback", methods=['POST'])
 def callback():
