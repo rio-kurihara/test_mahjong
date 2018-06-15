@@ -60,22 +60,25 @@ def callback():
         abort(400)
 
     return 'OK'
-#
-# @handler.add(MessageEvent, message=TextMessage)
-# def message_text(event):
-#     line_bot_api.reply_message(
-#         event.reply_token,
-#         TextSendMessage(text='画像しか受け付けてないんだ'))
 
 @handler.add(MessageEvent, message=TextMessage)
-def message_img(event):
-    if isinstance(event.message, ImageMessage):
-        ext = 'jpg'
-    else:
+def handle_text_message(event):
+    text = event.message.text
+
+    if text == '点数計算':
+        ## Show image list
         line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text='画像しか受け付けてないんだ'))
-        return
+            event.reply_token, TextSendMessage(text='点数計算をするよ'))
+#
+# @handler.add(MessageEvent, message=ImageMessage)
+# def message_img(event):
+#     if isinstance(event.message, ImageMessage):
+#         ext = 'jpg'
+#     else:
+#         line_bot_api.reply_message(
+#             event.reply_token,
+#             TextSendMessage(text='画像しか受け付けてないんだ'))
+#         return
 
 # @handler.add(MessageEvent, message=ImageMessage)
 # def message_img(event):
