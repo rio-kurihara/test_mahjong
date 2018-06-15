@@ -61,14 +61,10 @@ def callback():
 
     return 'OK'
 
-# @handler.add(MessageEvent, message=TextMessage)
-# def handle_text_message(event):
-#     text = event.message.text
-#
-#     if text == '点数計算':
-#         ## Show image list
-#         line_bot_api.reply_message(
-#             event.reply_token, TextSendMessage(text='点数計算をするよ'))
+@handler.add(MessageEvent, message=TextMessage)
+def handle_text_message(event):
+    line_bot_api.reply_message(
+        event.reply_token, TextSendMessage(text='画像しか受け付けてないんだ'))
 #
 # @handler.add(MessageEvent, message=ImageMessage)
 # def message_img(event):
@@ -83,14 +79,9 @@ def callback():
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_img(event):
-    if isinstance(event.message, ImageMessage):
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text='たしかに画像だね、でもまだ受け付けてないんだ'))
-    else:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text='画像しか受け付けませんよ'))
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text='たしかに画像だね、でもまだ受け付けてないんだ'))
 
 
 if __name__ == "__main__":
