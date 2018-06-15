@@ -12,6 +12,7 @@
 #  License for the specific language governing permissions and limitations
 #  under the License.
 
+
 import os
 import sys
 from argparse import ArgumentParser
@@ -71,13 +72,12 @@ def message_img(event):
     if isinstance(event.message, ImageMessage):
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text='たしかに画像だね、でもごめん、まだ受け付けてないんだ')
-        )
+            TextSendMessage(text='画像しか受け付けてないんだ'))
     else:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text='画像しか受け付けませんよ')
-        )
+            TextSendMessage(text='画像しか受け付けませんよ'))
+        return
 
 
 if __name__ == "__main__":
