@@ -44,10 +44,6 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 
-# def hello_world():
-#     return 'Hello World!'
-#
-
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
@@ -86,6 +82,5 @@ if __name__ == "__main__":
     arg_parser.add_argument('-p', '--port', default=8000, help='port')
     arg_parser.add_argument('-d', '--debug', default=False, help='debug')
     options = arg_parser.parse_args()
-    port = int(os.environ.get('PORT', 55523))
-
+    port = int(os.environ.get('PORT', 55400))
     app.run(debug=options.debug, port=port, host='0.0.0.0')
