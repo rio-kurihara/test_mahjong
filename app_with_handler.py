@@ -17,7 +17,7 @@ import os
 import sys
 sys.path.append('./')
 from argparse import ArgumentParser
-from boto import connect_s3
+# from boto import connect_s3
 from hellow_world import hello_world
 from flask import Flask, request, abort
 from linebot import (
@@ -60,18 +60,18 @@ def callback():
 
     return 'OK'
 
-@handler.add(MessageEvent, message=TextMessage)
-def handle_text_message(event):
-    text = hello_world()
-    line_bot_api.reply_message(
-        event.reply_token, TextSendMessage(text=text))
-
 def make_image_message():
     messages = ImageSendMessage(
         original_content_url="https://s3-ap-northeast-1.amazonaws.com/pointed-image/test_1.JPG", #JPEG 最大画像サイズ：240×240 最大ファイルサイズ：1MB(注意:仕様が変わっていた)
         preview_image_url="https://s3-ap-northeast-1.amazonaws.com/pointed-image/test_1.JPG" #JPEG 最大画像サイズ：1024×1024 最大ファイルサイズ：1MB(注意:仕様が変わっていた)
     )
     return messages
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_text_message(event):
+    text = hello_world()
+    line_bot_api.reply_message(
+        event.reply_token, TextSendMessage(text=text))
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_img(event):
