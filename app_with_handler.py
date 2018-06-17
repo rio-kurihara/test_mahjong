@@ -73,11 +73,11 @@ def handle_text_message(event):
     line_bot_api.reply_message(
         event.reply_token, TextSendMessage(text=text))
 
-@handler.add(MessageEvent, message=ImageMessage)
-def message_img(event):
-    messages = make_image_message()
-    line_bot_api.reply_message(
-        event.reply_token, messages)
+# @handler.add(MessageEvent, message=ImageMessage)
+# def message_img(event):
+#     messages = make_image_message()
+#     line_bot_api.reply_message(
+#         event.reply_token, messages)
 
 
 if __name__ == "__main__":
