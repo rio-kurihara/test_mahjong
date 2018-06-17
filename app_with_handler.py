@@ -82,7 +82,7 @@ def handle_text_message(event):
         event.reply_token,
         {
             "type": "text",
-            "text": "おっけー"
+            "text": "ok"
         })
 
 @handler.add(MessageEvent, message=ImageMessage)
