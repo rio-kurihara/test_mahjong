@@ -86,7 +86,7 @@ def message_image(event):
         token = event.reply_token
         msg_id = event.message.id
         msg_content = line_bot_api.get_message_content(msg_id)
-        tmp_path = "/static/images/{}".format(msg_id)
+        tmp_path = "./static/images/{}".format(msg_id)
 
         with open(tmp_path, "wb") as fw:
             for chunk in msg_content.iter_content():
@@ -101,6 +101,10 @@ def message_image(event):
 
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, img_msg)
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=tmp_path))
+
 
         # sid = choose_source_id(event.source)
         # line_bot_api.push_message(sid, TextSendMessage(text="message_id: {}, {}, {}".format(msg_id, img_fmt, str(exif_table))))
