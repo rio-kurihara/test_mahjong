@@ -19,7 +19,6 @@ app_name = "test-mahjong"
 os.makedirs("static/images")
 app = Flask(__name__, static_url_path="/static")
 
-…
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):

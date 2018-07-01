@@ -1,1 +1,1 @@
-web: python return_image.py
+web: python app_with_handler.py
