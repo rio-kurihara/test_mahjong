@@ -33,8 +33,8 @@ from linebot.models import (
 
 app_name = "test-mahjong"
 
-# os.makedirs("./static/images")
-app = Flask(__name__, static_url_path="/static")
+os.makedirs("./static/images")
+app = Flask(__name__, static_url_path="./static")
 
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
