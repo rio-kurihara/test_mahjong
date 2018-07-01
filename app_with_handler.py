@@ -90,7 +90,7 @@ def message_image(event):
         token = event.reply_token
         msg_id = event.message.id
         msg_content = line_bot_api.get_message_content(msg_id)
-        tmp_path = "app/static/images/{}".format(msg_id)
+        tmp_path = "/app/static/images/{}".format(msg_id)
 
         with open(tmp_path, "wb") as fw:
             for chunk in msg_content.iter_content():
