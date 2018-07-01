@@ -95,9 +95,8 @@ def message_image(event):
         with Image.open(tmp_path) as img:
             img_fmt = img.format
 
-            if img_fmt == "JPEG":
-                os.rename(tmp_path, tmp_path + ".jpg")
-                url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
+            os.rename(tmp_path, tmp_path + ".jpg")
+            url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
 
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, img_msg)
