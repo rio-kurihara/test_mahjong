@@ -36,7 +36,7 @@ app_name = "test-mahjong"
 dir_static = "static/"
 if not os.path.exists(dir_static):
     os.makedirs(dir_static)
-    
+
 app = Flask(__name__, static_url_path="/static/")
 
 # get channel_secret and channel_access_token from your environment variable
@@ -99,7 +99,7 @@ def message_image(event):
             img_fmt = img.format
 
             os.rename(tmp_path, tmp_path + ".jpg")
-            url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
+            url = "https://{}.herokuapp.com/{}".format(app_name, tmp_path)
 
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, img_msg)
