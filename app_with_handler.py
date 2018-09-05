@@ -33,7 +33,7 @@ from linebot.models import (
 
 app_name = "test-mahjong"
 
-os.makedirs("/static/")
+os.makedirs("static/")
 app = Flask(__name__, static_url_path="/static/")
 
 # get channel_secret and channel_access_token from your environment variable
@@ -86,7 +86,7 @@ def message_image(event):
         token = event.reply_token
         msg_id = event.message.id
         msg_content = line_bot_api.get_message_content(msg_id)
-        tmp_path = "/static/{}".format(msg_id)
+        tmp_path = "static/{}".format(msg_id)
 
         with open(tmp_path, "wb") as fw:
             for chunk in msg_content.iter_content():
