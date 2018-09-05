@@ -33,7 +33,10 @@ from linebot.models import (
 
 app_name = "test-mahjong"
 
-os.makedirs("static/")
+dir_static = "static/"
+if not os.path.exists(dir_static):
+    os.makedirs(dir_static)
+    
 app = Flask(__name__, static_url_path="/static/")
 
 # get channel_secret and channel_access_token from your environment variable
