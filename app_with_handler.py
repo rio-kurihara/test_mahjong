@@ -82,7 +82,7 @@ def handle_text_message(event):
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):
-    try:
+    # try:
         token = event.reply_token
         msg_id = event.message.id
         msg_content = line_bot_api.get_message_content(msg_id)
@@ -104,11 +104,11 @@ def message_image(event):
         # sid = choose_source_id(event.source)
         # line_bot_api.push_message(sid, TextSendMessage(text="message_id: {}, {}, {}".format(msg_id, img_fmt, str(exif_table))))
     # except linebot.exceptions.LineBotApiError as e:
-    except:
+    # except:
         # なんかエラー処理
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text='Error'))
+        # line_bot_api.reply_message(
+        #     event.reply_token,
+        #     TextSendMessage(text='Error'))
 
 if __name__ == "__main__":
     arg_parser = ArgumentParser(
