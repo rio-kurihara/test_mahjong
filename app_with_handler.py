@@ -89,7 +89,7 @@ def message_image(event):
         token = event.reply_token
         msg_id = event.message.id
         msg_content = line_bot_api.get_message_content(msg_id)
-        tmp_path = "static/{}".format(msg_id)
+        tmp_path = "static/{}.jpg".format(msg_id)
 
         with open(tmp_path, "wb") as fw:
             for chunk in msg_content.iter_content():
@@ -98,7 +98,7 @@ def message_image(event):
         with Image.open(tmp_path) as img:
             img_fmt = img.format
 
-            os.rename(tmp_path, tmp_path + ".jpg")
+            # os.rename(tmp_path, tmp_path + ".jpg")
             url = "https://{}.herokuapp.com/{}".format(app_name, tmp_path)
 
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
