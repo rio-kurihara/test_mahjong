@@ -105,8 +105,12 @@ def message_image(event):
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, img_msg)
 
-        sid = choose_source_id(event.source)
-        line_bot_api.push_message(sid, TextSendMessage(text="message_id: {}, {}".format(msg_id, img_fmt)))
+        # sid = choose_source_id(event.source)
+        # line_bot_api.push_message(sid, TextSendMessage(text="message_id: {}, {}".format(msg_id, img_fmt)))
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='message_id:{}, {}'.format(msg_id, tmp_path)))
+
     # except linebot.exceptions.LineBotApiError as e:
     # except:
         # なんかエラー処理
