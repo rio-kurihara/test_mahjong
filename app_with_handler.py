@@ -30,7 +30,8 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage
 )
-from mahjong_detector import detection_mahjong
+from hellow_world import hello_world
+# from mahjong_detector import detection_mahjong
 
 app_name = "test-mahjong"
 
