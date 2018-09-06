@@ -15,7 +15,7 @@
 
 import os
 import sys
-sys.path.append('./')
+sys.path.append('.')
 from argparse import ArgumentParser
 # from hellow_world import hello_world
 from flask import Flask, request, abort
