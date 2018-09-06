@@ -30,6 +30,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage
 )
+from mahjong_detector import detection_mahjong
 
 app_name = "test-mahjong"
 
@@ -98,18 +99,22 @@ def message_image(event):
         with Image.open(tmp_path) as img:
             img_fmt = img.format
 
+
             if img_fmt == "JPEG":
                 os.rename(tmp_path, tmp_path + ".jpg")
                 url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
+
+            txt_dora, txt_han, return_txt = detection_mahjong.main()
+
 
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, img_msg)
 
         # sid = choose_source_id(event.source)
         # line_bot_api.push_message(sid, TextSendMessage(text="message_id: {}, {}".format(msg_id, img_fmt)))
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text='message_id:{}, {}'.format(msg_id, tmp_path)))
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text='message_id:{}, {}'.format(msg_id, tmp_path)))
 
     # except linebot.exceptions.LineBotApiError as e:
     # except:
