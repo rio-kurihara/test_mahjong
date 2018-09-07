@@ -26,7 +26,6 @@ jupyter-console==5.2.0
 jupyter-core==4.4.0
 Keras==2.0.4
 Keras-Applications==1.0.4
-keras-compressor==0.0.1
 Keras-Preprocessing==1.0.2
 kiwisolver==1.0.1
 line-bot-sdk==1.5.0
