@@ -8,7 +8,7 @@ import numpy as np
 from scipy.misc import imread, imresize
 import tensorflow as tf
 import sys
-sys.path.append('/home/rio.kurihara/mahjong/0616_test/mahjong_detector')
+sys.path.append('./')
 from lib.ssd.ssd.ssd import SingleShotMultiBoxDetector
 
 from lib.win_judgementer import WinJudgementer
@@ -22,12 +22,12 @@ plt.rcParams['figure.figsize'] = (8, 8)
 plt.rcParams['image.interpolation'] = 'nearest'
 
 
-def make_dir():
-    today = datetime.date.today()
-    save_dir = os.path.join('/home/rio.kurihara/mahjong/0616_test/mahjong_detector/result', str(today))
-    if not os.path.isdir(save_dir):
-        os.makedirs(save_dir)
-    return save_dir
+# def make_dir():
+#     today = datetime.date.today()
+#     save_dir = os.path.join('/home/rio.kurihara/mahjong/0616_test/mahjong_detector/result', str(today))
+#     if not os.path.isdir(save_dir):
+#         os.makedirs(save_dir)
+#     return save_dir
 
 
 def add_margin(img):
@@ -48,6 +48,15 @@ def add_margin(img):
     return new_img
 
 def main(img_path):
+    # load model
+    model_file = './checkpoint/weights.25-0.05.hdf5'
+    param_file = './checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
+    ssd = SingleShotMultiBoxDetector(overlap_threshold=0.5, nms_threshold=0.45, max_output_size=400)
+    ssd.load_parameters(param_file)
+    ssd.build(init_weight=model_file)
+
+    input_shape = (512, 512, 3)
+
     inputs = []
     images = []
 
@@ -124,20 +133,6 @@ def main(img_path):
         pc = PointCalculater(list_label, wj, index_seat_wind=33, index_round_wind=30, dora=3)
         txt_dora, txt_han, wj.return_txt = pc.calc()
         return txt_dora, txt_han, wj.return_txt
-
-args = sys.argv
-img_path = args[1]
-
-model_file = '/home/rio.kurihara/mahjong/0616_test/mahjong_detector/checkpoint/weights.25-0.05.hdf5'
-param_file = '/home/rio.kurihara/mahjong/0616_test/mahjong_detector/checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
-ssd = SingleShotMultiBoxDetector(overlap_threshold=0.5, nms_threshold=0.45, max_output_size=400)
-ssd.load_parameters(param_file)
-ssd.build(init_weight=model_file)
-
-input_shape = (512, 512, 3)
-
-
-print(main(img_path))
 
     # 点数計算
 #     mark = 50
