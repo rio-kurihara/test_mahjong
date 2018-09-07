@@ -8,12 +8,12 @@ import numpy as np
 from scipy.misc import imread, imresize
 import tensorflow as tf
 import sys
-sys.path.append('./')
-from lib.ssd.ssd.ssd import SingleShotMultiBoxDetector
+# sys.path.append('./')
+from mahjong_detection.lib.ssd.ssd.ssd import SingleShotMultiBoxDetector
 
-from lib.win_judgementer import WinJudgementer
-from lib.point_calculater import PointCalculater
-from lib.score_calculater import score_calculate
+from mahjong_detection.lib.win_judgementer import WinJudgementer
+from mahjong_detection.lib.point_calculater import PointCalculater
+from mahjong_detection.lib.score_calculater import score_calculate
 from collections import OrderedDict
 
 import settings
