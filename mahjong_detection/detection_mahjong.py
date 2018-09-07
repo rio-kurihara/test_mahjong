@@ -16,8 +16,6 @@ from mahjong_detection.lib.point_calculater import PointCalculater
 from mahjong_detection.lib.score_calculater import score_calculate
 from collections import OrderedDict
 
-import settings
-
 plt.rcParams['figure.figsize'] = (8, 8)
 plt.rcParams['image.interpolation'] = 'nearest'
 
