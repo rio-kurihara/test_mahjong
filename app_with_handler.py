@@ -103,7 +103,7 @@ def message_image(event):
                 os.rename(tmp_path, tmp_path + ".jpg")
                 url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
 
-            txt_dora, txt_han, return_txt = detection_mahjong.main()
+            txt_dora, txt_han, return_txt = detection_mahjong.main(img)
 
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, img_msg)

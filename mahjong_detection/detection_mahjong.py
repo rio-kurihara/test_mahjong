@@ -45,7 +45,7 @@ def add_margin(img):
     new_img = np.concatenate([new_img, margin], axis=min_arg)
     return new_img
 
-def main(img_path):
+def main(img):
     # load model
     model_file = './checkpoint/weights.25-0.05.hdf5'
     param_file = './checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
@@ -58,7 +58,7 @@ def main(img_path):
     inputs = []
     images = []
 
-    img = image.load_img(img_path)
+    # img = image.load_img(img_path)
     img = image.img_to_array(img)
     img = add_margin(img)
     img = imresize(img, input_shape).astype("float32")
