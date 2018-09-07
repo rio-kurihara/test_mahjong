@@ -17,7 +17,6 @@ import os
 import sys
 sys.path.append('./')
 from argparse import ArgumentParser
-# from hellow_world import hello_world
 from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
@@ -30,8 +29,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage
 )
-# from hellow_world import hello_world
-from mahjong_detector import detection_mahjong
+from mahjong_detection import detection_mahjong
 
 app_name = "test-mahjong"
 
