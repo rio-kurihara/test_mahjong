@@ -104,10 +104,10 @@ def message_image(event):
 
             image_detected = detection_mahjong.main(img)
 
-        # ★TODO:検出結果の画像を返す
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text='計算終了'))
+            # ★TODO:検出結果の画像を返す
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text='計算終了'))
 
     # except:
         # なんかエラー処理
