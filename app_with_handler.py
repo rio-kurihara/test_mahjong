@@ -113,7 +113,7 @@ def message_image(event):
         # line_bot_api.push_message(sid, TextSendMessage(text="message_id: {}, {}".format(msg_id, img_fmt)))
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=str(list_label)))
+            TextSendMessage(text='計算終了'))
 
     # except linebot.exceptions.LineBotApiError as e:
     # except:
