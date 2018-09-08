@@ -14,12 +14,12 @@ class WinJudgementer:
             '1s':18, '2s':19, '3s':20, '4s':21, '5s':22, '6s':23, '7s':24, '8s':25, '9s':26,
             'h':27, 'f':28, 'c':29, 'e':30, 's':31, 'w':32, 'n':33}
 
-    def _check_array(self):
-        if not len(self.list_pi_name) == 14:
-            raise ValueError('input must be 14 tiles.')
+    # def _check_array(self):
+    #     if not len(self.list_pi_name) == 14:
+    #         raise ValueError('input must be 14 tiles.')
 
     def pi_convert_to_int(self):
-        self._check_array()
+        # self._check_array()
         if not type(self.list_pi_name[0]) == int:
             list_pi_num = [self.dict_pi[pi_name] for pi_name in self.list_pi_name]
             return list_pi_num
