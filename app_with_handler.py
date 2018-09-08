@@ -102,29 +102,13 @@ def message_image(event):
                 os.rename(tmp_path, tmp_path + ".jpg")
                 url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
 
-            # txt_dora, txt_han, return_txt = detection_mahjong.main(img)
             image_detected = detection_mahjong.main(img)
 
-        # detect結果のsave/return
-        tmp_save_path = "static/{}_detected".format(msg_id)
-        with open(tmp_save_path, "wb") as fw:
-            for chunk in msg_content.iter_content():
-                fw.write(chunk)
-        with Image.open(tmp_save_path) as image_detected:
-            os.rename(tmp_save_path, tmp_save_path + ".jpg")
-            url_detected = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_save_path)
+        # ★TODO:検出結果の画像を返す
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='計算終了'))
 
-        img_msg = ImageSendMessage(original_content_url=url_detected,
-        preview_image_url=url_detected)
-        line_bot_api.reply_message(event.reply_token, img_msg)
-
-        # sid = choose_source_id(event.source)
-        # line_bot_api.push_message(sid, TextSendMessage(text="message_id: {}, {}".format(msg_id, img_fmt)))
-        # line_bot_api.reply_message(
-        #     event.reply_token,
-        #     TextSendMessage(text='計算終了'))
-
-    # except linebot.exceptions.LineBotApiError as e:
     # except:
         # なんかエラー処理
         # line_bot_api.reply_message(

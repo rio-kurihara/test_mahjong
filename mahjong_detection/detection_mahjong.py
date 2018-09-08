@@ -100,8 +100,8 @@ def main(img):
 
         colors = plt.cm.hsv(np.linspace(0, 1, 35)).tolist()
 
-        plt.imshow(img / 255.)
-        currentAxis = plt.gca()
+        # plt.imshow(img / 255.)
+        # currentAxis = plt.gca()
 
         for i in range(top_conf.shape[0]):
             xmin = int(round(top_xmin[i] * img.shape[1]))
