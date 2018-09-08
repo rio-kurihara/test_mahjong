@@ -52,7 +52,7 @@ def load_file_from_s3():
 def main(img):
     # load weights file
     load_file_from_s3()
-    
+
     # load model
     model_file = 'mahjong_detection/checkpoint/weights.25-0.05.hdf5'
     param_file = 'mahjong_detection/checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
@@ -131,13 +131,14 @@ def main(img):
         result.columns = ['pi_name', 'max_match_val']
 
         # 和了判定
-        wj = WinJudgementer(list_label)
+        # wj = WinJudgementer(list_label)
         # eye, yaku = wj.agari()
 
         # 和了判定＋点計算
-        pc = PointCalculater(list_label, wj, index_seat_wind=33, index_round_wind=30, dora=3)
-        txt_dora, txt_han, wj.return_txt = pc.calc()
-        return txt_dora, txt_han, wj.return_txt
+        # pc = PointCalculater(list_label, wj, index_seat_wind=33, index_round_wind=30, dora=3)
+        # txt_dora, txt_han, wj.return_txt = pc.calc()
+        # return txt_dora, txt_han, wj.return_txt
+        return list_label
 
     # 点数計算
 #     mark = 50

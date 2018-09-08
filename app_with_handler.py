@@ -103,7 +103,8 @@ def message_image(event):
                 os.rename(tmp_path, tmp_path + ".jpg")
                 url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
 
-            txt_dora, txt_han, return_txt = detection_mahjong.main(img)
+            # txt_dora, txt_han, return_txt = detection_mahjong.main(img)
+            list_label = detection_mahjong.main(img)
 
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, img_msg)
@@ -112,7 +113,7 @@ def message_image(event):
         # line_bot_api.push_message(sid, TextSendMessage(text="message_id: {}, {}".format(msg_id, img_fmt)))
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=return_txt))
+                TextSendMessage(text=list_label))
 
     # except linebot.exceptions.LineBotApiError as e:
     # except:
