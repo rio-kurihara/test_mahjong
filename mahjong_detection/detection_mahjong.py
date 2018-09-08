@@ -138,7 +138,7 @@ def main(img):
         # pc = PointCalculater(list_label, wj, index_seat_wind=33, index_round_wind=30, dora=3)
         # txt_dora, txt_han, wj.return_txt = pc.calc()
         # return txt_dora, txt_han, wj.return_txt
-        return list_label
+        return img / 255.
 
     # 点数計算
 #     mark = 50
