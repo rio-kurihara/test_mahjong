@@ -100,8 +100,8 @@ def main(img):
 
         colors = plt.cm.hsv(np.linspace(0, 1, 35)).tolist()
 
-        # plt.imshow(img / 255.)
-        # currentAxis = plt.gca()
+        plt.imshow(img / 255.)
+        currentAxis = plt.gca()
 
         for i in range(top_conf.shape[0]):
             xmin = int(round(top_xmin[i] * img.shape[1]))
@@ -138,6 +138,7 @@ def main(img):
         # pc = PointCalculater(list_label, wj, index_seat_wind=33, index_round_wind=30, dora=3)
         # txt_dora, txt_han, wj.return_txt = pc.calc()
         # return txt_dora, txt_han, wj.return_txt
+        print(list_result)
         return img / 255.
 
     # 点数計算
