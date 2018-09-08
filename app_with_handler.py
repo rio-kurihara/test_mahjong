@@ -106,14 +106,14 @@ def message_image(event):
             # txt_dora, txt_han, return_txt = detection_mahjong.main(img)
             list_label = detection_mahjong.main(img)
 
-            img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
-            line_bot_api.reply_message(event.reply_token, img_msg)
+            # img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
+            # line_bot_api.reply_message(event.reply_token, img_msg)
 
         # sid = choose_source_id(event.source)
         # line_bot_api.push_message(sid, TextSendMessage(text="message_id: {}, {}".format(msg_id, img_fmt)))
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=list_label))
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=list_label))
 
     # except linebot.exceptions.LineBotApiError as e:
     # except:
