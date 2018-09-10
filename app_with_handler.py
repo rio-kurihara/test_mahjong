@@ -27,7 +27,8 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage
+    MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage,
+    PostbackEvent, PostbackTemplateAction, ButtonsTemplate, TemplateSendMessage
 )
 from mahjong_detection import detection_mahjong
 
