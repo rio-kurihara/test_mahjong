@@ -108,6 +108,7 @@ def message_image(event):
 
             # mahjong detector
             image_detected = detection_mahjong.main(img)
+            print(type(image_detected))
             detection_mahjong.savefig(image_detected, dir_output)
 
             # ★TODO:検出結果の画像を返す
