@@ -113,7 +113,7 @@ def message_image(event):
             output_path = detection_mahjong.savefig(image_detected, DIR_OUTPUT)
 
             # return result image
-            url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
+            url = "https://{}.herokuapp.com/{}.jpg".format(app_name, output_path)
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, img_msg)
 
