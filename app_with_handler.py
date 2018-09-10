@@ -112,6 +112,53 @@ def message_image(event):
             event.reply_token,
             TextSendMessage(text='Error'))
 
+@handler.add(PostbackEvent)
+def on_postback(event):
+    reply_token = event.reply_token
+    user_id = event.source.user_id
+    postback_msg = event.postback.data
+
+    if postback_msg == 'is_show=1':
+        line_bot_api.push_message(
+            to=user_id,
+            messages=TextSendMessage(text='is_showオプションは1だよ！')
+        )
+    elif postback_msg == 'is_show=0':
+        line_bot_api.push_message(
+            to=user_id,
+            messages=TextSendMessage(text='is_showオプションは0だよ！')
+        )
+
+# ボタンを送信する
+def send_button(event, user_id):
+    message_template = ButtonsTemplate(
+      text='BTC_JPYの通知',
+      actions=[
+          PostbackTemplateAction(
+            label='ON',
+            data='is_show=1'
+          ),
+          PostbackTemplateAction(
+            label='OFF',
+            data='is_show=0'
+          )
+      ]
+    )
+    line_bot_api.push_message(
+        to=user_id,
+        messages=TemplateSendMessage(
+            alt_text='button template',
+            template=message_template
+        )
+    )
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_text_message(event):
+    user_id = event.source.user_id
+    if (text=event.message.text == "設定"):
+        send_button(event, user_id)
+
+
 if __name__ == "__main__":
     arg_parser = ArgumentParser(
         usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
