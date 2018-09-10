@@ -37,6 +37,7 @@ app = Flask(__name__, static_url_path="/static")
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
 channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
+
 if channel_secret is None:
     print('Specify LINE_CHANNEL_SECRET as environment variable.')
     sys.exit(1)
@@ -64,12 +65,6 @@ def callback():
 
     return 'OK'
 
-# @handler.add(MessageEvent, message=TextMessage)
-# def handle_text_message(event):
-#     text = hello_world()
-#     line_bot_api.reply_message(
-#         event.reply_token, TextSendMessage(text=text))
-
 def load_file_from_s3():
     cmd = 'cd mahjong_detection/checkpoint\nwget https://s3-ap-northeast-1.amazonaws.com/test-mahjong/weights.25-0.05.hdf5'
     os.system(cmd)
@@ -84,7 +79,7 @@ DIR_OUTPUT = "static/output_images"
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):
-    # try:
+    try:
         _create_dir(DIR_INPUT)
         _create_dir(DIR_OUTPUT)
 
@@ -104,10 +99,6 @@ def message_image(event):
         with Image.open(tmp_path) as img:
             img_fmt = img.format
 
-            # if img_fmt == "JPEG":
-            #     os.rename(tmp_path, tmp_path + ".jpg")
-            #     url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
-
             # mahjong detector
             image_detected = detection_mahjong.main(img)
             output_path = detection_mahjong.savefig(image_detected, DIR_OUTPUT)
@@ -116,17 +107,10 @@ def message_image(event):
             url = "https://{}.herokuapp.com/{}.jpg".format(app_name, output_path)
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, img_msg)
-
-            # # ★TODO:検出結果の画像を返す
-            # line_bot_api.reply_message(
-            #     event.reply_token,
-            #     TextSendMessage(text='計算終了'))
-
-    # except:
-        # なんかエラー処理
-        # line_bot_api.reply_message(
-        #     event.reply_token,
-        #     TextSendMessage(text='Error'))
+    except:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='Error'))
 
 if __name__ == "__main__":
     arg_parser = ArgumentParser(

@@ -19,13 +19,6 @@ plt.rcParams['figure.figsize'] = (8, 8)
 plt.rcParams['image.interpolation'] = 'nearest'
 
 
-# def make_dir():
-#     today = datetime.date.today()
-#     save_dir = os.path.join('/home/rio.kurihara/mahjong/0616_test/mahjong_detector/result', str(today))
-#     if not os.path.isdir(save_dir):
-#         os.makedirs(save_dir)
-#     return save_dir
-
 THREDHOLD = 0.8
 
 def add_margin(img):
@@ -58,7 +51,6 @@ def main(img):
     inputs = []
     images = []
 
-    # img = image.load_img(img_path)
     img = image.img_to_array(img)
     img = add_margin(img)
     img = imresize(img, input_shape).astype("float32")
