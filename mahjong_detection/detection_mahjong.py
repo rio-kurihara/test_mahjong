@@ -129,7 +129,7 @@ def main(img):
 
 def savefig(image:np.array, save_dir:str):
     # iamge save
-    pil_img = Image.fromarray(image)
+    pil_img = Image.fromarray(np.uint8(image))
     jstTime = datetime.datetime.now() + datetime.timedelta(hours=9)
     save_fname = str(jstTime.time())[:5] + '.jpg'
     pil_img.save(save_fname)
