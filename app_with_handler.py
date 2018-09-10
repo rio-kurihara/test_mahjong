@@ -131,33 +131,30 @@ def on_postback(event):
         )
 
 # ボタンを送信する
-def send_button(event, user_id):
-    message_template = ButtonsTemplate(
-      text='BTC_JPYの通知',
-      actions=[
-          PostbackTemplateAction(
-            label='ON',
-            data='is_show=1'
-          ),
-          PostbackTemplateAction(
-            label='OFF',
-            data='is_show=0'
-          )
-      ]
-    )
-    line_bot_api.push_message(
-        to=user_id,
-        messages=TemplateSendMessage(
-            alt_text='button template',
-            template=message_template
-        )
-    )
-
 @handler.add(MessageEvent, message=TextMessage)
-def handle_text_message(event):
+def send_button(event):
     user_id = event.source.user_id
     if event.message.text == "設定":
-        send_button(event, user_id)
+        message_template = ButtonsTemplate(
+          text='BTC_JPYの通知',
+          actions=[
+              PostbackTemplateAction(
+                label='ON',
+                data='is_show=1'
+              ),
+              PostbackTemplateAction(
+                label='OFF',
+                data='is_show=0'
+              )
+          ]
+        )
+        line_bot_api.push_message(
+            to=user_id,
+            messages=TemplateSendMessage(
+                alt_text='button template',
+                template=message_template
+            )
+        )
 
 
 if __name__ == "__main__":
