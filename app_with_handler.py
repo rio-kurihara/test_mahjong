@@ -155,7 +155,7 @@ def send_button(event, user_id):
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     user_id = event.source.user_id
-    if (text=event.message.text == "設定"):
+    if event.message.text == "設定":
         send_button(event, user_id)
 
 
