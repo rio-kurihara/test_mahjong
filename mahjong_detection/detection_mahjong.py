@@ -2,19 +2,18 @@ import os
 import datetime
 import matplotlib
 matplotlib.use('Agg')
-from keras.preprocessing import image
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.misc import imread, imresize
 import tensorflow as tf
-import sys
-# sys.path.append('./')
-from mahjong_detection.lib.ssd.ssd.ssd import SingleShotMultiBoxDetector
 
+from keras.preprocessing import image
+from PIL import Image
+from scipy.misc import imread, imresize
+
+from mahjong_detection.lib.ssd.ssd.ssd import SingleShotMultiBoxDetector
 from mahjong_detection.lib.win_judgementer import WinJudgementer
 from mahjong_detection.lib.point_calculater import PointCalculater
 from mahjong_detection.lib.score_calculater import score_calculate
-from collections import OrderedDict
 
 plt.rcParams['figure.figsize'] = (8, 8)
 plt.rcParams['image.interpolation'] = 'nearest'
@@ -27,6 +26,7 @@ plt.rcParams['image.interpolation'] = 'nearest'
 #         os.makedirs(save_dir)
 #     return save_dir
 
+THREDHOLD = 0.8
 
 def add_margin(img):
     img_shape = list(img.shape)
@@ -45,14 +45,7 @@ def add_margin(img):
     new_img = np.concatenate([new_img, margin], axis=min_arg)
     return new_img
 
-def load_file_from_s3():
-    cmd = 'cd mahjong_detection/checkpoint\nwget https://s3-ap-northeast-1.amazonaws.com/test-mahjong/weights.25-0.05.hdf5'
-    os.system(cmd)
-
 def main(img):
-    # load weights file
-    load_file_from_s3()
-
     # load model
     model_file = 'mahjong_detection/checkpoint/weights.25-0.05.hdf5'
     param_file = 'mahjong_detection/checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
@@ -76,11 +69,9 @@ def main(img):
 
     results = ssd.detect(inputs, batch_size=1, verbose=1, do_preprocess=True)
 
-    list_label = []
-    import pandas as pd
+    list_result_label = []
+    list_result_score = []
     for i, img in enumerate(images):
-        result = pd.DataFrame()
-
         # Parse the outputs.
         det_label = results[i][:, 0]
         det_conf = results[i][:, 1]
@@ -89,7 +80,7 @@ def main(img):
         det_xmax = results[i][:, 4]
         det_ymax = results[i][:, 5]
 
-        top_indices = [i for i, conf in enumerate(det_conf) if conf >= 0.9]
+        top_indices = [i for i, conf in enumerate(det_conf) if conf >= THREDHOLD]
 
         top_conf = det_conf[top_indices]
         top_label_indices = det_label[top_indices].tolist()
@@ -117,18 +108,9 @@ def main(img):
             currentAxis.add_patch(plt.Rectangle(*coords, fill=False, edgecolor=color, linewidth=2))
             currentAxis.text(xmin, ymin, display_txt, bbox={'facecolor':color, 'alpha':1.0})
             # 結果格納
-            list_result = [label_name, round(score,2)]
-            tmp_result = pd.DataFrame(list_result).T
-            result = pd.concat([result, tmp_result], axis=0)
+            list_result_label.append(label_name)
+            list_result_score.append(round(score,2))
 
-            list_label.append(label_name)
-        # save
-    #     save_dir = make_dir()
-    #     jstTime = datetime.datetime.now() + datetime.timedelta(hours=9)
-    #     save_fname = str(jstTime.time())[:5] + '.png'
-    #     plt.savefig(os.path.join(save_dir, save_fname))
-    # #     plt.show()
-        result.columns = ['pi_name', 'max_match_val']
 
         # 和了判定
         # wj = WinJudgementer(list_label)
@@ -138,9 +120,16 @@ def main(img):
         # pc = PointCalculater(list_label, wj, index_seat_wind=33, index_round_wind=30, dora=3)
         # txt_dora, txt_han, wj.return_txt = pc.calc()
         # return txt_dora, txt_han, wj.return_txt
-        print(list_result)
+        print(list_result_label)
         return img / 255.
 
     # 点数計算
 #     mark = 50
 #     score_calculate(mark, point, flg_leader=False, flg_ron=True)
+
+def savefig(image:np.array, save_dir:str):
+    # iamge save
+    pil_img = Image.fromarray(image)
+    jstTime = datetime.datetime.now() + datetime.timedelta(hours=9)
+    save_fname = str(jstTime.time())[:5] + '.jpg'
+    pil_img.save(save_fname)

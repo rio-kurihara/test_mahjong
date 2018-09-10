@@ -33,9 +33,13 @@ from mahjong_detection import detection_mahjong
 
 app_name = "test-mahjong"
 
-dir_static = "static/"
-if not os.path.exists(dir_static):
-    os.makedirs(dir_static)
+dir_input = "static/input_images"
+if not os.path.exists(dir_input):
+    os.makedirs(dir_input)
+
+dir_output = "static/output_images"
+if not os.path.exists(dir_output):
+    os.makedirs(dir_output)
 
 app = Flask(__name__, static_url_path="/static")
 
@@ -74,14 +78,10 @@ def callback():
 #     text = hello_world()
 #     line_bot_api.reply_message(
 #         event.reply_token, TextSendMessage(text=text))
-#
-#
-# @handler.add(MessageEvent, message=ImageMessage)
-# def message_img(event):
-#     line_bot_api.reply_message(
-#         event.reply_token,
-#         TextSendMessage(text='たしかに画像だね、でもまだ受け付けてないんだ'))
 
+def load_file_from_s3():
+    cmd = 'cd mahjong_detection/checkpoint\nwget https://s3-ap-northeast-1.amazonaws.com/test-mahjong/weights.25-0.05.hdf5'
+    os.system(cmd)
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):
@@ -89,7 +89,11 @@ def message_image(event):
         token = event.reply_token
         msg_id = event.message.id
         msg_content = line_bot_api.get_message_content(msg_id)
-        tmp_path = "static/{}".format(msg_id)
+        tmp_path = "static/input_images/{}".format(msg_id)
+
+        # load file
+        if not os.path.exists('mahjong_detection/checkpoint/weights.25-0.05.hdf5'):
+            load_file_from_s3()
 
         with open(tmp_path, "wb") as fw:
             for chunk in msg_content.iter_content():
@@ -102,7 +106,9 @@ def message_image(event):
                 os.rename(tmp_path, tmp_path + ".jpg")
                 url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
 
+            # mahjong detector
             image_detected = detection_mahjong.main(img)
+            detection_mahjong.savefig(image_detected, dir_output)
 
             # ★TODO:検出結果の画像を返す
             line_bot_api.reply_message(
