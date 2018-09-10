@@ -36,10 +36,12 @@ app_name = "test-mahjong"
 dir_input = "static/input_images"
 if not os.path.exists(dir_input):
     os.makedirs(dir_input)
+    print('make dir: {}'.format(dir_input))
 
 dir_output = "static/output_images"
 if not os.path.exists(dir_output):
     os.makedirs(dir_output)
+    print('make dir: {}'.format(dir_output))
 
 app = Flask(__name__, static_url_path="/static")
 
@@ -102,19 +104,24 @@ def message_image(event):
         with Image.open(tmp_path) as img:
             img_fmt = img.format
 
-            if img_fmt == "JPEG":
-                os.rename(tmp_path, tmp_path + ".jpg")
-                url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
+            # if img_fmt == "JPEG":
+            #     os.rename(tmp_path, tmp_path + ".jpg")
+            #     url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
 
             # mahjong detector
             image_detected = detection_mahjong.main(img)
             print(type(image_detected))
-            detection_mahjong.savefig(image_detected, dir_output)
+            output_path = detection_mahjong.savefig(image_detected, dir_output)
 
-            # ★TODO:検出結果の画像を返す
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text='計算終了'))
+            # return result image
+            url = "https://{}.herokuapp.com/{}.jpg".format(app_name, output_path)
+            img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
+            line_bot_api.reply_message(event.reply_token, img_msg)
+
+            # # ★TODO:検出結果の画像を返す
+            # line_bot_api.reply_message(
+            #     event.reply_token,
+            #     TextSendMessage(text='計算終了'))
 
     # except:
         # なんかエラー処理
