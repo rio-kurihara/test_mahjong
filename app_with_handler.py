@@ -87,7 +87,8 @@ def message_image(event):
         token = event.reply_token
         msg_id = event.message.id
         msg_content = line_bot_api.get_message_content(msg_id)
-        tmp_path = "{}/{}".format(DIR_INPUT, msg_id)
+        # tmp_path = "{}/{}".format(DIR_INPUT, msg_id)
+        tmp_path = "static/{}".format(msg_id)
 
         # load file
         if not os.path.exists('mahjong_detection/checkpoint/weights.25-0.05.hdf5'):
