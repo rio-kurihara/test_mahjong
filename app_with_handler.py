@@ -103,14 +103,13 @@ def message_image(event):
             # mahjong detector
             image_detected, list_result_label = detection_mahjong.main(img)
             output_path = detection_mahjong.savefig(image_detected, DIR_OUTPUT)
-            print('*'*40)
+            print('*'*40, output_path)
 
             # return result image
             url = "https://{}.herokuapp.com/{}.jpg".format(app_name, output_path)
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
-#             line_bot_api.reply_message(event.reply_token, img_msg)
-            txt_msg = TextSendMessage(text='ok')
-            line_bot_api.reply_message(event.reply_token, txt_msg)
+            # txt_msg = TextSendMessage(text='ok')
+            line_bot_api.reply_message(event.reply_token, img_msg)
 
     # except:
     #     line_bot_api.reply_message(
