@@ -96,39 +96,26 @@ def message_image(event):
         with open(tmp_path, "wb") as fw:
             for chunk in msg_content.iter_content():
                 fw.write(chunk)
-        print('*'*40)
+
         with Image.open(tmp_path) as img:
             img_fmt = img.format
 
             # mahjong detector
-            image_detected = detection_mahjong.main(img)
+            image_detected, list_result_label = detection_mahjong.main(img)
             output_path = detection_mahjong.savefig(image_detected, DIR_OUTPUT)
+            print('*'*40)
 
             # return result image
-            url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
+            url = "https://{}.herokuapp.com/{}.jpg".format(app_name, output_path)
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
-            line_bot_api.reply_message(event.reply_token, img_msg)
+#             line_bot_api.reply_message(event.reply_token, img_msg)
+            txt_msg = TextSendMessage(text='ok')
+            line_bot_api.reply_message(event.reply_token, [txt_msg, txt_msg])
+
     # except:
     #     line_bot_api.reply_message(
     #         event.reply_token,
     #         TextSendMessage(text='Error'))
-
-@handler.add(PostbackEvent)
-def on_postback(event):
-    reply_token = event.reply_token
-    user_id = event.source.user_id
-    postback_msg = event.postback.data
-
-    if postback_msg == 'is_show=1':
-        line_bot_api.push_message(
-            to=user_id,
-            messages=TextSendMessage(text='is_showオプションは1だよ！')
-        )
-    elif postback_msg == 'is_show=0':
-        line_bot_api.push_message(
-            to=user_id,
-            messages=TextSendMessage(text='is_showオプションは0だよ！')
-        )
 
 
 if __name__ == "__main__":

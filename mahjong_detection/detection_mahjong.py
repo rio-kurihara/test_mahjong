@@ -40,6 +40,8 @@ def add_margin(img):
 
 def main(img):
     # load model
+#     model_file = '/home/rio.kurihara/mahjong/mahjong_detector_old/checkpoint/weights.25-0.05.hdf5'
+#     param_file = '/home/rio.kurihara/mahjong/mahjong_detector_old/checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
     model_file = 'mahjong_detection/checkpoint/weights.25-0.05.hdf5'
     param_file = 'mahjong_detection/checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
     ssd = SingleShotMultiBoxDetector(overlap_threshold=0.5, nms_threshold=0.45, max_output_size=400)
@@ -113,7 +115,7 @@ def main(img):
         # txt_dora, txt_han, wj.return_txt = pc.calc()
         # return txt_dora, txt_han, wj.return_txt
         print(list_result_label)
-        return img / 255.
+        return img / 255., list_result_label
 
     # 点数計算
 #     mark = 50
