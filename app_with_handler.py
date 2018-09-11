@@ -115,6 +115,7 @@ def message_image(event):
 
             # return result image
             url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
+            print(url)
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             # txt_msg = TextSendMessage(text='ok')
             line_bot_api.reply_message(event.reply_token, img_msg)

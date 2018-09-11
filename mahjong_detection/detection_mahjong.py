@@ -127,5 +127,6 @@ def savefig(image:np.array, save_dir:str):
     jstTime = datetime.datetime.now() + datetime.timedelta(hours=9)
     save_fname = str(jstTime.time())[:5] + '.jpg'
     save_path = os.path.join(save_dir, save_fname)
+    save_path = save_path.replace(':', '_')
     pil_img.save(save_path)
     return save_path
