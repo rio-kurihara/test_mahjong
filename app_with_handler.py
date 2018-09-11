@@ -80,7 +80,7 @@ DIR_OUTPUT = "static/output_images"
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):
-    try:
+    # try:
         _create_dir(DIR_INPUT)
         _create_dir(DIR_OUTPUT)
 
@@ -108,10 +108,10 @@ def message_image(event):
             url = "https://{}.herokuapp.com/{}.jpg".format(app_name, output_path)
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, img_msg)
-    except:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text='Error'))
+    # except:
+    #     line_bot_api.reply_message(
+    #         event.reply_token,
+    #         TextSendMessage(text='Error'))
 
 @handler.add(PostbackEvent)
 def on_postback(event):
