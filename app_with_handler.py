@@ -108,8 +108,7 @@ def message_image(event):
             # line_bot_api.reply_message(event.reply_token, img_msg)
 
             # mahjong detector
-            image_detected, list_result_label = detection_mahjong.main(img)
-            output_path = detection_mahjong.savefig(image_detected, DIR_OUTPUT)
+            output_path, list_result_label = detection_mahjong.main(img, DIR_OUTPUT)
             print('*'*40, output_path)
             print(os.path.exists(output_path))
 

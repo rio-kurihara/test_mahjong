@@ -38,7 +38,13 @@ def add_margin(img):
     new_img = np.concatenate([new_img, margin], axis=min_arg)
     return new_img
 
-def main(img):
+def _get_fname(save_dir):
+    # 現在時刻からファイル名を作成
+    save_fname = str(datetime.datetime.now())[:16].replace(' ', '_') + '.jpg'
+    save_path = os.path.join(save_dir, save_fname)
+    return save_path
+
+def main(img, save_dir):
     # load model
 #     model_file = '/home/rio.kurihara/mahjong/mahjong_detector_old/checkpoint/weights.25-0.05.hdf5'
 #     param_file = '/home/rio.kurihara/mahjong/mahjong_detector_old/checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
@@ -104,7 +110,10 @@ def main(img):
             # 結果格納
             list_result_label.append(label_name)
             list_result_score.append(round(score,2))
-
+        
+        save_path = _get_fname(save_dir)
+        plt.savefig(save_path)
+        plt.show()
 
         # 和了判定
         # wj = WinJudgementer(list_label)
@@ -115,18 +124,9 @@ def main(img):
         # txt_dora, txt_han, wj.return_txt = pc.calc()
         # return txt_dora, txt_han, wj.return_txt
         print(list_result_label)
-        return img / 255., list_result_label
+        return save_path, list_result_label
 
     # 点数計算
 #     mark = 50
 #     score_calculate(mark, point, flg_leader=False, flg_ron=True)
 
-def savefig(image:np.array, save_dir:str):
-    # iamge save
-    pil_img = Image.fromarray(np.uint8(image))
-    jstTime = datetime.datetime.now() + datetime.timedelta(hours=9)
-    save_fname = str(jstTime.time())[:5] + '.jpg'
-    save_path = os.path.join(save_dir, save_fname)
-    save_path = save_path.replace(':', '_')
-    pil_img.save(save_path)
-    return save_path
