@@ -100,23 +100,24 @@ def message_image(event):
 
         with Image.open(tmp_path) as img:
             img_fmt = img.format
-            # return orginal image
-            os.rename(tmp_path, tmp_path + ".jpg")
-            print('*'*40, tmp_path)
-            url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
-            img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
-            line_bot_api.reply_message(event.reply_token, img_msg)
-
-            # # mahjong detector
-            # image_detected, list_result_label = detection_mahjong.main(img)
-            # output_path = detection_mahjong.savefig(image_detected, DIR_OUTPUT)
-            # print('*'*40, output_path)
-            #
-            # # return result image
-            # url = "https://{}.herokuapp.com/{}.jpg".format(app_name, output_path)
+            # # return orginal image
+            # os.rename(tmp_path, tmp_path + ".jpg")
+            # print('*'*40, tmp_path)
+            # url = "https://{}.herokuapp.com/{}.jpg".format(app_name, tmp_path)
             # img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
-            # # txt_msg = TextSendMessage(text='ok')
             # line_bot_api.reply_message(event.reply_token, img_msg)
+
+            # mahjong detector
+            image_detected, list_result_label = detection_mahjong.main(img)
+            output_path = detection_mahjong.savefig(image_detected, DIR_OUTPUT)
+            print('*'*40, output_path)
+            print(os.path.exists(output_path))
+
+            # return result image
+            url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
+            img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
+            # txt_msg = TextSendMessage(text='ok')
+            line_bot_api.reply_message(event.reply_token, img_msg)
 
     # except:
     #     line_bot_api.reply_message(
