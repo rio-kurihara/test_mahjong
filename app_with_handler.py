@@ -80,7 +80,7 @@ DIR_OUTPUT = "static/output_images"
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):
-    # try:
+    # try: aaa
         _create_dir(DIR_INPUT)
         _create_dir(DIR_OUTPUT)
 
