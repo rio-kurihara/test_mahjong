@@ -68,7 +68,7 @@ def callback():
 
 def load_file_from_s3():
     # cmd = 'cd mahjong_detection/checkpoint\nwget https://s3-ap-northeast-1.amazonaws.com/test-mahjong/weights.25-0.05.hdf5'
-    cmd = 'cd mahjong_detection/checkpoint\ncurl https://s3-ap-northeast-1.amazonaws.com/test-mahjong/weights.25-0.05.hdf5'
+    cmd = 'curl https://s3-ap-northeast-1.amazonaws.com/test-mahjong/weights.25-0.05.hdf5　>mahjong_detection/checkpoint/weights.25-0.05.hdf5'
     os.system(cmd)
 
 def _create_dir(dir_name):
