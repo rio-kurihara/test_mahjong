@@ -15,7 +15,7 @@ from mahjong_detection.lib.win_judgementer import WinJudgementer
 from mahjong_detection.lib.point_calculater import PointCalculater
 from mahjong_detection.lib.score_calculater import score_calculate
 
-plt.rcParams['figure.figsize'] = (8, 8)
+plt.rcParams['figure.figsize'] = (4, 4)
 plt.rcParams['image.interpolation'] = 'nearest'
 
 
@@ -110,7 +110,7 @@ def main(img, save_dir):
             # 結果格納
             list_result_label.append(label_name)
             list_result_score.append(round(score,2))
-        
+
         save_path = _get_fname(save_dir)
         plt.savefig(save_path)
         plt.show()
@@ -129,4 +129,3 @@ def main(img, save_dir):
     # 点数計算
 #     mark = 50
 #     score_calculate(mark, point, flg_leader=False, flg_ron=True)
-
