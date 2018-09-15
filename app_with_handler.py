@@ -31,7 +31,7 @@ from linebot.models import (
     PostbackEvent, PostbackTemplateAction, ButtonsTemplate, TemplateSendMessage
 )
 
-import random
+import random 
 import tensorflow as tf
 from mahjong_detection import detection_mahjong
 
