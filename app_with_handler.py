@@ -119,7 +119,7 @@ def message_image(event):
             # line_bot_api.reply_message(event.reply_token, txt_msg)
 
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
-            line_bot_api.reply_message(event.reply_token, [img_msg, img_msg])
+            line_bot_api.reply_message(event.reply_token, [txt_msg, img_msg])
     # except:
     #     line_bot_api.reply_message(
     #         event.reply_token,
