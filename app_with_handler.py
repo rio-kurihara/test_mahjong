@@ -67,8 +67,7 @@ def callback():
     return 'OK'
 
 def load_file_from_s3():
-    # cmd = 'cd mahjong_detection/checkpoint\nwget https://s3-ap-northeast-1.amazonaws.com/test-mahjong/weights.25-0.05.hdf5'
-    cmd = 'curl https://s3-ap-northeast-1.amazonaws.com/test-mahjong/weights.25-0.05.hdf5　>mahjong_detection/checkpoint/weights.25-0.05.hdf5'
+    cmd = 'cd mahjong_detection/checkpoint\nwget https://s3-ap-northeast-1.amazonaws.com/test-mahjong/weights.25-0.05.hdf5'
     os.system(cmd)
 
 def _create_dir(dir_name):
@@ -81,7 +80,7 @@ DIR_OUTPUT = "static/output_images"
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):
-    # try: aaa
+    # try:
         _create_dir(DIR_INPUT)
         _create_dir(DIR_OUTPUT)
 
@@ -108,6 +107,8 @@ def message_image(event):
             # img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             # line_bot_api.reply_message(event.reply_token, img_msg)
 
+            txt_msg = TextSendMessage(text='ok')
+            line_bot_api.reply_message(event.reply_token, txt_msg)
             # mahjong detector
             output_path, list_result_label = detection_mahjong.main(img, DIR_OUTPUT)
             print('*'*40, output_path)
@@ -117,8 +118,8 @@ def message_image(event):
             url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
             print(url)
             # img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
-            txt_msg = TextSendMessage(text='ok')
-            line_bot_api.reply_message(event.reply_token, txt_msg)
+            # txt_msg = TextSendMessage(text='ok')
+            # line_bot_api.reply_message(event.reply_token, txt_msg)
             # line_bot_api.reply_message(event.reply_token, img_msg)
     # except:
     #     line_bot_api.reply_message(
