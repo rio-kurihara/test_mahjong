@@ -20,6 +20,7 @@ plt.rcParams['image.interpolation'] = 'nearest'
 
 
 THREDHOLD = 0.8
+global ssd
 
 def add_margin(img):
     img_shape = list(img.shape)
