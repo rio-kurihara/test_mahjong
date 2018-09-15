@@ -53,7 +53,7 @@ def build_model():
     model_file = 'mahjong_detection/checkpoint/weights.25-0.05.hdf5'
     param_file = 'mahjong_detection/checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
     if not os.path.exists(model_file):
-        load_file_from_s3()
+        _load_file_from_s3()
 
     ssd = SingleShotMultiBoxDetector(overlap_threshold=0.5, nms_threshold=0.45, max_output_size=400)
     ssd.load_parameters(param_file)
