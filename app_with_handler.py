@@ -77,6 +77,7 @@ _create_dir(DIR_INPUT)
 _create_dir(DIR_OUTPUT)
 
 # model build
+global ssd
 ssd = detection_mahjong.build_model()
 
 @handler.add(MessageEvent, message=ImageMessage)
