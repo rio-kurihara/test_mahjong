@@ -28,7 +28,7 @@ Keras==2.0.4
 Keras-Applications==1.0.4
 Keras-Preprocessing==1.0.2
 kiwisolver==1.0.1
-line-bot-sdk==1.5.0
+line-bot-sdk==1.8.0
 Markdown==2.6.11
 MarkupSafe==1.0
 matplotlib==2.2.3
