@@ -58,6 +58,7 @@ def build_model():
     ssd = SingleShotMultiBoxDetector(overlap_threshold=0.5, nms_threshold=0.45, max_output_size=400)
     ssd.load_parameters(param_file)
     ssd.build(init_weight=model_file)
+    print('*'*40, 'model build')
     return ssd
 
 def main(img, save_dir, ssd):

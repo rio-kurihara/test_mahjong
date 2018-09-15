@@ -73,6 +73,8 @@ def _create_dir(dir_name):
 
 DIR_INPUT = "static/input_images"
 DIR_OUTPUT = "static/output_images"
+_create_dir(DIR_INPUT)
+_create_dir(DIR_OUTPUT)
 
 # model build
 ssd = detection_mahjong.build_model()
@@ -80,9 +82,6 @@ ssd = detection_mahjong.build_model()
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):
     # try:
-        _create_dir(DIR_INPUT)
-        _create_dir(DIR_OUTPUT)
-
         token = event.reply_token
         msg_id = event.message.id
         msg_content = line_bot_api.get_message_content(msg_id)
