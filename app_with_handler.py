@@ -78,6 +78,7 @@ _create_dir(DIR_OUTPUT)
 
 # model build
 ssd = detection_mahjong.build_model()
+graph = tf.get_default_graph()
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):
@@ -102,7 +103,9 @@ def message_image(event):
             # line_bot_api.reply_message(event.reply_token, img_msg)
 
             # mahjong detector
-            output_path, list_result_label = detection_mahjong.main(img, DIR_OUTPUT, ssd)
+            global graph
+            with graph.as_default():
+                output_path, list_result_label = detection_mahjong.main(img, DIR_OUTPUT, ssd)
             print('*'*40, output_path)
             print(os.path.exists(output_path))
 
