@@ -108,17 +108,18 @@ def message_image(event):
             global graph
             with graph.as_default():
                 output_path, list_result_label = detection_mahjong.main(img, DIR_OUTPUT, ssd)
+
             print('*'*40, output_path)
             print(os.path.exists(output_path))
 
             # return result image
             url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
             print(url)
-            # txt_msg = TextSendMessage(text='ok')
+            txt_msg = TextSendMessage(text='ok')
             # line_bot_api.reply_message(event.reply_token, txt_msg)
 
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
-            line_bot_api.reply_message(event.reply_token, img_msg)
+            line_bot_api.reply_message(event.reply_token, [img_msg, txt_msg])
     # except:
     #     line_bot_api.reply_message(
     #         event.reply_token,
