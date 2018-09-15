@@ -30,6 +30,8 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage,
     PostbackEvent, PostbackTemplateAction, ButtonsTemplate, TemplateSendMessage
 )
+
+import tensorflow as tf
 from mahjong_detection import detection_mahjong
 
 app_name = "test-mahjong"
