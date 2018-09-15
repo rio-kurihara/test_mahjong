@@ -78,6 +78,9 @@ def _create_dir(dir_name):
 DIR_INPUT = "static/input_images"
 DIR_OUTPUT = "static/output_images"
 
+# model build
+ssd = mahjong_detection.build_model()
+
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):
     # try:
@@ -113,7 +116,7 @@ def message_image(event):
             print(os.path.exists(output_path))
 
             # return result image
-            url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
+            url = "https://{}.herokuapp.com/{}".format(app_name, output_path, ssd)
             print(url)
             txt_msg = TextSendMessage(text='ok')
             line_bot_api.reply_message(event.reply_token, txt_msg)

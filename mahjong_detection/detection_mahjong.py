@@ -44,16 +44,16 @@ def _get_fname(save_dir):
     save_path = os.path.join(save_dir, save_fname)
     return save_path
 
-def main(img, save_dir):
+def build_model():
     # load model
-#     model_file = '/home/rio.kurihara/mahjong/mahjong_detector_old/checkpoint/weights.25-0.05.hdf5'
-#     param_file = '/home/rio.kurihara/mahjong/mahjong_detector_old/checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
     model_file = 'mahjong_detection/checkpoint/weights.25-0.05.hdf5'
     param_file = 'mahjong_detection/checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
     ssd = SingleShotMultiBoxDetector(overlap_threshold=0.5, nms_threshold=0.45, max_output_size=400)
     ssd.load_parameters(param_file)
     ssd.build(init_weight=model_file)
+    return ssd
 
+def main(img, save_dir, ssd):
     input_shape = (512, 512, 3)
 
     inputs = []
