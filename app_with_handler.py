@@ -66,10 +66,6 @@ def callback():
 
     return 'OK'
 
-def load_file_from_s3():
-    cmd = 'cd mahjong_detection/checkpoint\nwget https://s3-ap-northeast-1.amazonaws.com/test-mahjong/weights.25-0.05.hdf5'
-    os.system(cmd)
-
 def _create_dir(dir_name):
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
@@ -79,7 +75,7 @@ DIR_INPUT = "static/input_images"
 DIR_OUTPUT = "static/output_images"
 
 # model build
-ssd = mahjong_detection.build_model()
+ssd = detection_mahjong.build_model()
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):
@@ -92,10 +88,6 @@ def message_image(event):
         msg_content = line_bot_api.get_message_content(msg_id)
         # tmp_path = "{}/{}".format(DIR_INPUT, msg_id)
         tmp_path = "static/{}".format(msg_id)
-
-        # load file
-        if not os.path.exists('mahjong_detection/checkpoint/weights.25-0.05.hdf5'):
-            load_file_from_s3()
 
         with open(tmp_path, "wb") as fw:
             for chunk in msg_content.iter_content():
@@ -111,12 +103,12 @@ def message_image(event):
             # line_bot_api.reply_message(event.reply_token, img_msg)
 
             # mahjong detector
-            output_path, list_result_label = detection_mahjong.main(img, DIR_OUTPUT)
+            output_path, list_result_label = detection_mahjong.main(img, DIR_OUTPUT, ssd)
             print('*'*40, output_path)
             print(os.path.exists(output_path))
 
             # return result image
-            url = "https://{}.herokuapp.com/{}".format(app_name, output_path, ssd)
+            url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
             print(url)
             txt_msg = TextSendMessage(text='ok')
             line_bot_api.reply_message(event.reply_token, txt_msg)
