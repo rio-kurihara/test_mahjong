@@ -107,8 +107,6 @@ def message_image(event):
             # img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             # line_bot_api.reply_message(event.reply_token, img_msg)
 
-            txt_msg = TextSendMessage(text='ok')
-            line_bot_api.reply_message(event.reply_token, txt_msg)
             # mahjong detector
             output_path, list_result_label = detection_mahjong.main(img, DIR_OUTPUT)
             print('*'*40, output_path)
@@ -117,6 +115,9 @@ def message_image(event):
             # return result image
             url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
             print(url)
+            txt_msg = TextSendMessage(text='ok')
+            line_bot_api.reply_message(event.reply_token, txt_msg)
+
             # img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             # txt_msg = TextSendMessage(text='ok')
             # line_bot_api.reply_message(event.reply_token, txt_msg)
