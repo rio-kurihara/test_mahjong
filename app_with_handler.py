@@ -80,8 +80,20 @@ _create_dir(DIR_INPUT)
 _create_dir(DIR_OUTPUT)
 
 # model build
-ssd = detection_mahjong.build_model()
-graph = tf.get_default_graph()
+ssd = None
+graph = None
+
+@handler.add(MessageEvent, message=TextMessage)
+def message_image(event):
+    # model buildを外に出すとアプリ起動に時間がかかりすぎるので、テキストメッセージが来たらmodel buildする
+    global ssd
+    global graph
+    if ssd is None:
+        ssd = detection_mahjong.build_model()
+        graph = tf.get_default_graph()
+    txt_msg = TextSendMessage(text='ok')
+    line_bot_api.reply_message(event.reply_token, txt_msg)
+
 
 @handler.add(MessageEvent, message=ImageMessage)
 def message_image(event):
