@@ -20,7 +20,6 @@ plt.rcParams['image.interpolation'] = 'nearest'
 
 
 THREDHOLD = 0.8
-global ssd
 
 def add_margin(img):
     img_shape = list(img.shape)
@@ -50,6 +49,8 @@ def _load_file_from_s3():
     os.system(cmd)
 
 def build_model():
+    global ssd
+
     # build model
     model_file = 'mahjong_detection/checkpoint/weights.25-0.05.hdf5'
     param_file = 'mahjong_detection/checkpoint/ssd300_params_mahjong_vgg16_train_2.json'
