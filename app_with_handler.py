@@ -136,6 +136,7 @@ def message_image(event):
             win_pi = '4m'
             dora_pi = 'n'
             path_config = 'mahjong_detection/config_point_calculate.ini'
+            print(os.path.exists(path_config))
 
             pc = point_calculater.PointCalculater(list_piname, win_pi, dora_pi, path_config)
             yaku, han, hu, parent_point, child_point = pc.main()
