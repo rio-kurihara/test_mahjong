@@ -134,11 +134,11 @@ def message_image(event):
 
         # 点数計算して結果のテキストを返す
         win_pi = '2m'
-        dora_pi = 'c'
+        dora_pi = '8s'
         path_config = 'mahjong_detection/config_point_calculate.ini'
         print(os.path.exists(path_config))
 
-        list_piname = ['1m', '2m', '3m', 'f', 'f', '3s', '4s', '5s', 'n', 'n', 'n', '2p', '3p', '4p']
+        list_piname = ['1m', '2m', '3m', 'f', 'f', '3s', '4s', '5s', '5p', '5p', '5p', '2p', '3p', '4p']
         pc = point_calculater.PointCalculater(list_piname, win_pi, dora_pi, path_config)
         yaku, han, hu, parent_point, child_point = pc.main()
         result_txt = point_calculater.create_return_txt(yaku, han, hu, parent_point, child_point)
