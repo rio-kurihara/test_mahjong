@@ -34,7 +34,7 @@ from linebot.models import (
 import random
 import tensorflow as tf
 from mahjong_detection import detection_mahjong
-from mahjong_detection.detection_mahjong.lib import point_calculater
+from mahjong_detection.lib import point_calculater
 
 app_name = "test-mahjong"
 app = Flask(__name__, static_url_path="/static")
