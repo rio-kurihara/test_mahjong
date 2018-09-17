@@ -131,6 +131,7 @@ def main(img, save_dir, ssd):
         # pc = PointCalculater(list_label, wj, index_seat_wind=33, index_round_wind=30, dora=3)
         # txt_dora, txt_han, wj.return_txt = pc.calc()
         # return txt_dora, txt_han, wj.return_txt
+        list_result_label = ['1m', '2m', '3m', '4p', '5p', '6p', '5s', '6s', '7s', 's', 's', 's', 'c', 'c']
         print(list_result_label)
         return save_path, list_result_label
 
