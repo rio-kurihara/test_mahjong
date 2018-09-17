@@ -143,8 +143,10 @@ def message_image(event):
         result_txt = point_calculater.create_return_txt(yaku, han, hu, parent_point, child_point)
 
         txt_msg = TextSendMessage(text=result_txt)
+        txt_msg_2 = TextSendMessage(text='え、リーのみ？')
+
         img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
-        line_bot_api.reply_message(event.reply_token, [img_msg, txt_msg])
+        line_bot_api.reply_message(event.reply_token, [img_msg, txt_msg, txt_msg_2])
 
     # except:
     #     line_bot_api.reply_message(
