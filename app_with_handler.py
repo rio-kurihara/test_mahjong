@@ -133,8 +133,8 @@ def message_image(event):
         # line_bot_api.reply_message(event.reply_token, txt_msg)
 
         # 点数計算して結果のテキストを返す
-        win_pi = '4m'
-        dora_pi = 'n'
+        win_pi = '2m'
+        dora_pi = 'c'
         path_config = 'mahjong_detection/config_point_calculate.ini'
         print(os.path.exists(path_config))
 
