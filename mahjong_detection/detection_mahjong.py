@@ -121,7 +121,7 @@ def main(img, save_dir, ssd):
 
         save_path = _get_fname(save_dir)
         plt.savefig(save_path)
-        plt.show()
+        plt.close()
 
         # 和了判定
         # wj = WinJudgementer(list_label)
