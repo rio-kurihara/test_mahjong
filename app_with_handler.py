@@ -120,15 +120,15 @@ def message_image(event):
 
             # mahjong detector
             global graph
-            with graph.as_default():
-                output_path, list_piname = detection_mahjong.main(img, DIR_OUTPUT, ssd)
+            # with graph.as_default():
+            #     output_path, list_piname = detection_mahjong.main(img, DIR_OUTPUT, ssd)
 
-        print('*'*40, output_path)
-        print(os.path.exists(output_path))
+        # print('*'*40, output_path)
+        # print(os.path.exists(output_path))
 
         # return result image
-        url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
-        print(url)
+        # url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
+        # print(url)
         # txt_msg = TextSendMessage(text='ok')
         # line_bot_api.reply_message(event.reply_token, txt_msg)
 
@@ -138,6 +138,7 @@ def message_image(event):
         path_config = 'mahjong_detection/config_point_calculate.ini'
         print(os.path.exists(path_config))
 
+        list_piname = ['1m', '2m', '3m', 'f', 'f', '3s', '4s', '5s', 'n', 'n', 'n', '2p', '3p', '4p']
         pc = point_calculater.PointCalculater(list_piname, win_pi, dora_pi, path_config)
         yaku, han, hu, parent_point, child_point = pc.main()
         result_txt = point_calculater.create_return_txt(yaku, han, hu, parent_point, child_point)
@@ -145,8 +146,8 @@ def message_image(event):
         txt_msg = TextSendMessage(text=result_txt)
         txt_msg_2 = TextSendMessage(text='え、リーのみ？')
 
-        img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
-        line_bot_api.reply_message(event.reply_token, [img_msg, txt_msg, txt_msg_2])
+        # img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
+        line_bot_api.reply_message(event.reply_token, [txt_msg, txt_msg_2])
 
     # except:
     #     line_bot_api.reply_message(
