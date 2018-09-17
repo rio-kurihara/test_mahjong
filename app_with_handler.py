@@ -34,6 +34,7 @@ from linebot.models import (
 import random
 import tensorflow as tf
 from mahjong_detection import detection_mahjong
+from mahjong_detection.detection_mahjong.lib import point_calculater
 
 app_name = "test-mahjong"
 app = Flask(__name__, static_url_path="/static")
@@ -120,7 +121,7 @@ def message_image(event):
             # mahjong detector
             global graph
             with graph.as_default():
-                output_path, list_result_label = detection_mahjong.main(img, DIR_OUTPUT, ssd)
+                output_path, list_piname = detection_mahjong.main(img, DIR_OUTPUT, ssd)
 
             print('*'*40, output_path)
             print(os.path.exists(output_path))
@@ -128,11 +129,22 @@ def message_image(event):
             # return result image
             url = "https://{}.herokuapp.com/{}".format(app_name, output_path)
             print(url)
-            txt_msg = TextSendMessage(text='ok')
+            # txt_msg = TextSendMessage(text='ok')
             # line_bot_api.reply_message(event.reply_token, txt_msg)
 
+            # 点数計算して結果のテキストを返す
+            win_pi = '4m'
+            dora_pi = 'n'
+            path_config = 'mahjong_detection/config_point_calculate.ini'
+
+            pc = point_calculater.PointCalculater(list_piname, win_pi, dora_pi, path_config)
+            yaku, han, hu, parent_point, child_point = pc.main()
+            result_txt = point_calculater.create_return_txt(yaku, han, hu, parent_point, child_point)
+
+            txt_msg = TextSendMessage(text=result_txt)
             img_msg = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, [img_msg, txt_msg])
+
             # line_bot_api.reply_message(event.reply_token, img_msg)
 
     # except:
